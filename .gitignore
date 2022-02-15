@@ -1,0 +1,4 @@
+venv
+local_settings.py
+credentials_google.json
+logs.log
