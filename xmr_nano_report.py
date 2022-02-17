@@ -6,7 +6,7 @@ import requests
 
 from local_settings import XMR_WALLET
 from spreadsheet import append_row
-from telegram import send_message
+from telegram_rest_api import send_message
 
 WALLET = XMR_WALLET
 API_DATA_URL = f'https://xmr.nanopool.org/api/v1/user/{WALLET}'

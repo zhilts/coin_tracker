@@ -5,7 +5,7 @@ import requests
 
 from local_settings import DUCO_WALLET
 from spreadsheet import append_row
-from telegram import send_message
+from telegram_rest_api import send_message
 
 WALLET = DUCO_WALLET
 DUCO_WALLET_URL = f"https://server.duinocoin.com/users/{WALLET}"
