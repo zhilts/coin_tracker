@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-from datetime import datetime
+from datetime import datetime, timedelta
 
 import requests
 
@@ -13,13 +13,15 @@ DUCO_WALLET_URL = f"https://server.duinocoin.com/users/{WALLET}"
 TRANSACTION_DATETIME_FORMAT = '%d/%m/%Y %H:%M:%S'
 
 
-def get_is_today_transaction(now):
-    def is_today(transaction):
+def get_is_yesterday_transaction(now):
+    yesterday = now.date() - timedelta(days=1)
+
+    def is_yesterday(transaction):
         dt_str = transaction.get('datetime')
         dt = datetime.strptime(dt_str, TRANSACTION_DATETIME_FORMAT)
-        return now.date() == dt.date()
+        return now.date() == yesterday
 
-    return is_today
+    return is_yesterday
 
 
 def get_data(timestamp):
@@ -28,8 +30,8 @@ def get_data(timestamp):
     miners = data.get('miners')
     miner_names = [m.get('identifier') for m in miners]
     transactions = data.get('transactions')
-    is_today = get_is_today_transaction(timestamp)
-    today_transactions = list(filter(is_today, transactions))
+    is_yesterday = get_is_yesterday_transaction(timestamp)
+    today_transactions = list(filter(is_yesterday, transactions))
     return balance, miner_names, today_transactions
 
 
