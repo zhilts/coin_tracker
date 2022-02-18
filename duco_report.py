@@ -19,7 +19,7 @@ def get_is_yesterday_transaction(now):
     def is_yesterday(transaction):
         dt_str = transaction.get('datetime')
         dt = datetime.strptime(dt_str, TRANSACTION_DATETIME_FORMAT)
-        return now.date() == yesterday
+        return dt.date() == yesterday
 
     return is_yesterday
 
