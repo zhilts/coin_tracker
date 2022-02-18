@@ -20,11 +20,11 @@ from datetime import datetime
 
 from telegram import Update, ForceReply
 from telegram.ext import Updater, CommandHandler, CallbackContext
+
 from duco_report import get_data as get_data_duco, publish_telegram as publish_telegram_duco
+from local_settings import TELEGRAM_TOKEN
 from xmr_mine_report import get_data as get_data_xmr_mine, publish_telegram as publish_telegram_xmr_mine
 from xmr_nano_report import get_data as get_data_xmr_nano, publish_telegram as publish_telegram_xmr_nano
-
-from local_settings import TELEGRAM_TOKEN
 
 # Enable logging
 logging.basicConfig(

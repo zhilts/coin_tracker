@@ -8,7 +8,7 @@ from spreadsheet import append_row
 from telegram_rest_api import send_message
 
 WALLET = DUCO_WALLET
-DUCO_WALLET_URL = f"https://server.duinocoin.com/users/{WALLET}"
+DUCO_WALLET_URL = f"https://server.duinocoin.com/users/{WALLET}?limit=9999"
 
 TRANSACTION_DATETIME_FORMAT = '%d/%m/%Y %H:%M:%S'
 
