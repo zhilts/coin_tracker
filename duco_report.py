@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-import datetime
+from datetime import datetime
 
 import requests
 
@@ -10,16 +10,30 @@ from telegram_rest_api import send_message
 WALLET = DUCO_WALLET
 DUCO_WALLET_URL = f"https://server.duinocoin.com/users/{WALLET}"
 
+TRANSACTION_DATETIME_FORMAT = '%d/%m/%Y %H:%M:%S'
 
-def get_data():
+
+def get_is_today_transaction(now):
+    def is_today(transaction):
+        dt_str = transaction.get('datetime')
+        dt = datetime.strptime(dt_str, TRANSACTION_DATETIME_FORMAT)
+        return now.date() == dt.date()
+
+    return is_today
+
+
+def get_data(timestamp):
     data = requests.get(DUCO_WALLET_URL).json().get("result")
     balance = data.get('balance').get('balance')
     miners = data.get('miners')
     miner_names = [m.get('identifier') for m in miners]
-    return balance, miner_names
+    transactions = data.get('transactions')
+    is_today = get_is_today_transaction(timestamp)
+    today_transactions = list(filter(is_today, transactions))
+    return balance, miner_names, today_transactions
 
 
-def publish_telegram(balance, miners):
+def publish_telegram(balance, miners, *_):
     msg = '''
     ᕲ Duino Coin
     \t 🪙 Balance: <code>{balance:.2f} ᕲ</code>
@@ -28,14 +42,16 @@ def publish_telegram(balance, miners):
     send_message(msg)
 
 
-def publish_spreads(timestamp, balance, miners):
+def publish_spreads(timestamp, balance, miners, transactions):
     worker_list = "\n".join(miners)
-    values = [timestamp, balance, len(miners), worker_list]
+    transactions_sum = sum([t.get('amount') for t in transactions])
+    values = [timestamp, balance, transactions_sum, len(miners), worker_list]
     append_row("DUCO", values)
 
 
 if __name__ == '__main__':
-    timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    balance, miners = get_data()
+    timestamp = datetime.now()
+    timestamp_str = timestamp.strftime('%Y-%m-%d %H:%M:%S')
+    balance, miners, transactions = get_data(timestamp)
     publish_telegram(balance, miners)
-    publish_spreads(timestamp, balance, miners)
+    publish_spreads(timestamp_str, balance, miners, transactions)

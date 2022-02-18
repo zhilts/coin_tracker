@@ -16,6 +16,7 @@ bot.
 """
 
 import logging
+from datetime import datetime
 
 from telegram import Update, ForceReply
 from telegram.ext import Updater, CommandHandler, CallbackContext
@@ -51,7 +52,8 @@ def help_command(update: Update, context: CallbackContext) -> None:
 
 def stats(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /start is issued."""
-    publish_telegram_duco(*get_data_duco())
+    timestamp = datetime.now()
+    publish_telegram_duco(*get_data_duco(timestamp))
     publish_telegram_xmr_mine(*get_data_xmr_mine())
     publish_telegram_xmr_nano(*get_data_xmr_nano())
 
