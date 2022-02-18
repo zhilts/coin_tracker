@@ -1,7 +1,8 @@
 #!/bin/bash
 
-. ./venv/bin/activate
-./duco_report.py >> ./logs.log
-./xmr_mine_report.py >> ./logs.log
-./xmr_nano_report.py >> ./logs.log
-deactivate
+function run() {
+  docker-compose run --rm bot $1
+}
+run ./duco_report.py >> ./logs.log
+run ./xmr_mine_report.py >> ./logs.log
+run ./xmr_nano_report.py >> ./logs.log
