@@ -38,7 +38,7 @@ def get_data(timestamp):
 def publish_telegram(balance, miners, *_):
     msg = '''
     ᕲ Duino Coin
-    \t 🪙 Balance: <code>{balance:.2f} ᕲ</code>
+    \t 🪙 Balance: <code>{balance:.2f}</code> ᕲ
     \t ⛏ Workers: <code>{workers}</code>
     '''.format(balance=balance, workers=len(miners))
     send_message(msg)

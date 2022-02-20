@@ -29,7 +29,7 @@ def publish_telegram(balance, workers):
         table.add_row([w.get('name'), '{:.2f}'.format(w.get('hashrate'))])
     message = '''
     ɱ Monero Coin (MineXMR)
-    \t 🪙 Balance: <code>{balance} ɱ</code>
+    \t 🪙 Balance: <code>{balance}</code> ɱ
     \t ⛏ Workers: <code>{workers_count}</code>
     \n<pre>{workers}</pre>
     '''.format(balance=balance, workers_count=len(workers), workers=table)
