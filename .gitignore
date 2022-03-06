@@ -3,3 +3,4 @@ local_settings.py
 credentials_google.json
 logs.log
 docker-compose.override.yml
+__pycache__
