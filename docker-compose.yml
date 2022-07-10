@@ -2,10 +2,10 @@ version: '3'
 
 services:
   bot:
-    image: coin_tg_bot_sz
+    image: ${AWS_ACCOUNT_ID}.dkr.ecr.eu-central-1.amazonaws.com/coin-bot:latest
     restart: always
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - ./local_settings.py:/app/local_settings.py
+    env_file:
+      - .env

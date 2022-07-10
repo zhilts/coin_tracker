@@ -51,9 +51,13 @@ def publish_spreads(timestamp, balance, miners, transactions):
     append_row("DUCO", values)
 
 
-if __name__ == '__main__':
+def main():
     timestamp = datetime.now()
     timestamp_str = timestamp.strftime('%Y-%m-%d %H:%M:%S')
     balance, miners, transactions = get_data(timestamp)
     publish_telegram(balance, miners)
     publish_spreads(timestamp_str, balance, miners, transactions)
+
+
+if __name__ == '__main__':
+    main()

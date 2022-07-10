@@ -41,8 +41,12 @@ def publish_spreads(timestamp, balance, miners):
     append_row("XMR_nano", values)
 
 
-if __name__ == '__main__':
+def main():
     timestamp = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     balance, workers = get_data()
     publish_telegram(balance, workers)
     publish_spreads(timestamp, balance, workers)
+
+
+if __name__ == '__main__':
+    main()

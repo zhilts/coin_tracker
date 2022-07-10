@@ -1,4 +1,3 @@
-local_settings.py
+.env
 logs.txt
-run.sh
 venv
