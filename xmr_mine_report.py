@@ -17,8 +17,8 @@ WORKERS_STAT_URL = f"{BASE_API_URL}/user/workers"
 def get_data():
     user_data = requests.get(USER_STAT_URL, params=dict(address=WALLET)).json()
     workers_data = requests.get(WORKERS_STAT_URL, params=dict(address=WALLET)).json()
-    balance = int(user_data.get('balance')) / (10 ** 12)
-    return balance, workers_data
+    total = (int(user_data.get('balance')) + int(user_data.get('paid'))) / (10 ** 12)
+    return total, workers_data
 
 
 def publish_telegram(balance, workers):
