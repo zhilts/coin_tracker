@@ -5,8 +5,8 @@ from xmr_nano_report import main as xmr_nano_main
 
 def main():
     duco_main()
-    xmr_mine_main()
-    xmr_nano_main()
+    # xmr_mine_main()
+    # xmr_nano_main()
 
 
 if __name__ == '__main__':
